@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="w-full max-w-md">
+    
+    <!-- Flash Notifications Layout Block -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-4 space-y-2">
+        {% for category, message in messages %}
+          {% if category == 'success' %}
+            <div class="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm">
+                {{ message }}
+            </div>
+          {% elif category == 'error' %}
+            <div class="p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-400 text-sm">
+                {{ message }}
+            </div>
+          {% else %}
+            <div class="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-400 text-sm">
+                {{ message }}
+            </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Core Security Interactive Input Card UI Interface -->
+    <div class="bg-slate-950 border border-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-white tracking-tight">Process File</h1>
+            <p class="text-sm text-slate-400 mt-1">Encrypt or Decrypt raw text instantly in system memory.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-5">
+            <!-- File Input Area Configuration -->
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Target Input File</label>
+                <input 
+                    type="file" 
+                    name="file" 
+                    accept=".txt" 
+                    class="block w-full text-sm text-slate-400
+                           file:mr-4 file:py-2 file:px-4
+                           file:rounded-xl file:border-0
+                           file:text-sm file:font-semibold
+                           file:bg-slate-800 file:text-slate-200
+                           hover:file:bg-slate-700
+                           cursor-pointer border border-slate-800 bg-slate-900/40 rounded-xl p-2 focus:outline-none"
+                    required>
+            </div>
+
+            <!-- Password Form Parameter -->
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Secret Passphrase Key</label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    placeholder="••••••••••••" 
+                    class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                    required>
+            </div>
+
+            <!-- Action Select Parameter Selector Option -->
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Required Core Mode Execution</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <label class="relative flex items-center justify-center p-3 rounded-xl border border-slate-800 bg-slate-900/50 cursor-pointer select-none text-sm font-medium hover:bg-slate-900 transition-colors checked-sibling:border-blue-500">
+                        <input type="radio" name="action" value="encrypt" checked class="sr-only peer">
+                        <span class="peer-checked:text-blue-400 text-slate-400 font-semibold">🔒 Encrypt</span>
+                    </label>
+                    <label class="relative flex items-center justify-center p-3 rounded-xl border border-slate-800 bg-slate-900/50 cursor-pointer select-none text-sm font-medium hover:bg-slate-900 transition-colors">
+                        <input type="radio" name="action" value="decrypt" class="sr-only peer">
+                        <span class="peer-checked:text-indigo-400 text-slate-400 font-semibold">🔓 Decrypt</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Execution Submit Trigger Action Module -->
+            <button 
+                type="submit" 
+                class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm py-3 px-4 rounded-xl transition-all shadow-lg shadow-indigo-950/50 hover:shadow-indigo-900/40 focus:outline-none">
+                Execute Process Sequence
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Tiny CSS injection to toggle state highlights within custom radio UI modules above -->
+<style>
+    input[type="radio"]:checked + span {
+        color: #60a5fa !important;
+    }
+    input[type="radio"]:checked ~ parent {
+        border-color: #3b82f6 !important;
+    }
+</style>
+{% endblock %}

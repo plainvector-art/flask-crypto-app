@@ -1,0 +1,11 @@
+# Python bytecode cache (keeps folder clean)
+__pycache__/
+*.pyc
+
+# Local Virtual Environments (never upload your venv folder)
+venv/
+.venv/
+env/
+
+# IDE files
+.vscode/
